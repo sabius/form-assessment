@@ -1,1 +1,1 @@
-const headline = "Welcome to the Form Assesment!";
+console.log('The form');
