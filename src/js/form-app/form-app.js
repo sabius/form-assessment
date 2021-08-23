@@ -1,5 +1,6 @@
 import FormElement from "./form-element";
 import FormHeader from "./form-header";
+import FormButtons from "./form-buttons";
 
 class FormApp {
   constructor(formData) {
@@ -7,13 +8,15 @@ class FormApp {
     this.el = document.querySelector(`#${this.blockClass}`);
     this.el.classList.add(`${this.blockClass}`);
     this.headerData = formData.header;
-    this.formFields = formData.fields;
+    this.formInputs = formData.inputs;
+    this.formCheckBoxes = formData.checkBoxes;
+    this.form = null;
     this.formElements = [];
   }
 
   render() {
     this.el.appendChild(this.createFormHeader());
-    this.el.appendChild(this.createFormElements());
+    this.el.appendChild(this.createForm());
   }
 
   createFormHeader() {
@@ -21,18 +24,46 @@ class FormApp {
     return header.render();
   }
 
-  createFormElements() {
-    let inputParent = document.createElement("form");
+  createForm() {
+    this.form = document.createElement("form");
+    this.form.classList.add(`${this.blockClass}__container`);
+    this.form.appendChild(this.createFormInputs());
+    this.form.appendChild(this.createFormCheckboxes());
+    this.form.appendChild(this.createButtons());
 
-    this.formFields.forEach(field => {
+    return this.form;
+  }
+
+  createFormInputs() {
+    const parentElement = document.createElement("div");
+    parentElement.classList.add(`${this.blockClass}__inputs`);
+    this.formInputs.forEach(field => {
       let element = new FormElement(this.blockClass, field);
       let builtElement = element.build();
 
       this.formElements.push(builtElement);
-      inputParent.appendChild(builtElement);
+      parentElement.appendChild(builtElement);
     });
+    return parentElement;
+  }
 
-    return inputParent;
+  createFormCheckboxes() {
+    const parentElement = document.createElement("div");
+    parentElement.classList.add(`${this.blockClass}__checkboxes`);
+    this.formCheckBoxes.forEach(field => {
+      console.log(field);
+      let element = new FormElement(this.blockClass, field);
+      let builtElement = element.build();
+
+      this.formElements.push(builtElement);
+      parentElement.appendChild(builtElement);
+    });
+    return parentElement;
+  }
+
+  createButtons() {
+    const buttons = new FormButtons(this.blockClass);
+    return buttons.build();
   }
 }
 
