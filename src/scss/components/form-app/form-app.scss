@@ -1,16 +1,23 @@
 .form-app {
   background-image: url("../assets/texture.png");
-  background-size: 200px;
+  background-size: 400px;
   background-repeat: repeat;
   min-height: 100vh;
-  padding: 1rem;
+  padding: 2rem;
 
-  form {
+  &__inputs,
+  &__checkboxes {
     @media only screen and (min-width: 768px) {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 0 2rem;
     }
+  }
+
+  &__header,
+  &__container {
+    margin: auto;
+    max-width: 1028px;
   }
 
   &__header {
@@ -72,6 +79,27 @@
       margin-right: 1em;
       height: 1rem;
       width: 1rem;
+    }
+  }
+
+  &__buttons {
+    margin-top: 3rem;
+  }
+
+  &__button {
+    cursor: pointer;
+    font-weight: 700;
+    padding: 1rem;
+    width: 12rem;
+    margin-right: 1rem;
+    margin-top: 1rem;
+    border-radius: 2rem;
+    border: none;
+    box-shadow: 0px 4px 10px -1px #808080;
+
+    &--submit {
+      background-color: blueviolet;
+      color: white;
     }
   }
 }
