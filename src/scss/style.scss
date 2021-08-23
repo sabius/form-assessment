@@ -1,15 +1,4 @@
-$light-text: cadetblue;
+@import './utils/reset';
+@import './utils/base';
 
-body {
-  background-color: antiquewhite;
-}
-
-.container {
-  padding: 1rem;
-  display: flex;
-  background: linear-gradient(to top, black, white);
-
-  h1 {
-    color: $light-text;
-  }
-}
+@import './components/form-app/form-app.scss'
