@@ -1,5 +1,6 @@
 class FormElement {
-  constructor(data) {
+  constructor(blockClass, data) {
+    this.blockClass = blockClass;
     this.name = data.name;
     this.text = data.text;
     this.type = data.type;
@@ -14,22 +15,25 @@ class FormElement {
   }
 
   buildParent() {
-    let parentElement = document.createElement('div');
+    this.el = document.createElement('div');
 
-    parentElement.appendChild(this.buildSpan());
-    parentElement.appendChild(this.buildFormElement());
+    this.el.appendChild(this.buildSpan());
+    this.el.appendChild(this.buildFormElement());
 
-    return parentElement;
+    return this.el;
   }
 
   buildFormElement() {
     let formElement = null;
 
     if (this.type === 'text' || this.type === 'email') {
+      this.el.classList.add(`${this.blockClass}__input`);
       formElement = this.buildInput();
     } else if (this.type === 'select') {
+      this.el.classList.add(`${this.blockClass}__select`);
       formElement = this.buildSelect();
     } else if (this.type === 'checkbox') {
+      this.el.classList.add(`${this.blockClass}__checkbox`);
       formElement = this.buildCheckbox();
     } else {
       console.error('Unrecognized form element type.');
@@ -41,19 +45,19 @@ class FormElement {
   }
 
   buildInput() {
-    let element = document.createElement('input');
+    const element = document.createElement('input');
+    element.setAttribute('type', 'text');
 
     return element;
   }
 
   buildSelect() {
-    let element = document.createElement('select');
+    const element = document.createElement('select');
 
     this.options.forEach(option => {
-      console.log(option);
       let optionElement = document.createElement('option')
-      optionElement.setAttribute('value', option);
-      optionElement.innerText = option;
+      optionElement.setAttribute('value', option.value);
+      optionElement.innerText = option.text;
       element.appendChild(optionElement);
     });
 
@@ -61,14 +65,16 @@ class FormElement {
   }
 
   buildCheckbox() {
-    let element = document.createElement('input');
+    const element = document.createElement('input');
     element.setAttribute('type', 'checkbox');
+
     return element;
   }
 
   buildSpan() {
-    let element = document.createElement('span');
-    element.innerText = this.text;
+    const element = document.createElement('span');
+
+    element.innerText = `${this.text.toUpperCase()}${this.required?'*':''}`;
 
     return element;
   }

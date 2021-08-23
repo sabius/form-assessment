@@ -1,38 +1,12 @@
-import FormElement from "./form-element";
+import FormApp from './form-app/form-app'
 
-class Form {
-  constructor(formFields) {
-    this.el = null;
-    this.formFields = formFields;
-    this.formElements = [];
-
-    this.init();
-  }
-
-  init() {
-    this.el = document.querySelector("#form-app");
-
-    this.el.appendChild(this.createFormElements());
-    console.log(this.formElements);
-  }
-
-  createFormElements() {
-    let inputParent = document.createElement("div");
-
-    this.formFields.forEach(field => {
-      let element = new FormElement(field);
-      let builtElement = element.build();
-
-      this.formElements.push(builtElement);
-      inputParent.appendChild(builtElement);
-    });
-
-    return inputParent;
-  }
-}
-
-const formFields = [
-  {
+const formData = {
+  header: {
+    text: "Sign up for email updates",
+    disclaimer: "*Indicates required field",
+    mandatoryPartial: " is required."
+  },
+  fields: [{
     name: "firstName",
     text: "First Name",
     type: "text",
@@ -58,9 +32,16 @@ const formFields = [
     type: "select",
     required: true,
     options: [
-      "Select One",
-      "Yes",
-      "No"
+      {
+        value: "",
+        text: "Select One"
+      },{
+        value: "yes",
+        text: "Yes"
+      },{
+        value: "no",
+        text: "No"
+      }
     ]
   }, {
     name: "advances",
@@ -76,6 +57,7 @@ const formFields = [
     text: "Other Communications",
     type: "checkbox"
   }
-];
+]};
 
-const form = new Form(formFields);
+let formApp = new FormApp(formData);
+formApp.render();
