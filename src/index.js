@@ -1,2 +1,12 @@
 import "./scss/style.scss"
-import "./js/main.js"
+
+import FormApp from './js/FormApp.vue';
+
+if (document.querySelector("#form-app")) {
+  new Vue({
+    el: "#form-app",
+    render: h => h(FormApp)
+  });
+}
+
+console.log('wtf');

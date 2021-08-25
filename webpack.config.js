@@ -2,6 +2,8 @@ const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const { VueLoaderPlugin } = require('vue-loader')
+
 
 const mode = process.env.NODE_ENV === "production" ? "production" : "development";
 const target = process.env.NODE_ENV === "production" ? "browserslist" : "web";
@@ -11,11 +13,12 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
     new MiniCssExtractPlugin(),
+    new VueLoaderPlugin(),
     new HtmlWebpackPlugin({
       template: './src/index.html',
       inject: false,
       favicon: './src/assets/favicon.ico',
-    })
+    }),
   ],
 
   output: {
@@ -38,6 +41,10 @@ module.exports = {
         use: {
           loader: "babel-loader"
         }
+      },
+      {
+        test: /\.vue$/,
+        loader: 'vue-loader'
       }
     ],
   },
