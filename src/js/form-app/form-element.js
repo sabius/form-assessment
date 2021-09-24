@@ -40,6 +40,9 @@ class FormElement {
     }
 
     formElement.setAttribute("name", this.name);
+    if(this.required) {
+      formElement.setAttribute('data-required', true);
+    }
 
     return formElement;
   }
