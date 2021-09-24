@@ -8,6 +8,7 @@ class FormButtons {
   build() {
     this.el.appendChild(this.createSubmit());
     this.el.appendChild(this.createReset());
+    
     return this.el;
   }
 
